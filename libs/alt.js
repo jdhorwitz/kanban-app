@@ -1,5 +1,14 @@
-import Alt from 'alt';
+const Alt = require('alt');
+const makeFinalStore = require('alt-utils/lib/makeFinalStore');
 
-const alt = new Alt();
+class Flux extends Alt {
+    constructor(config) {
+        super(config);
 
-export default alt;
+        this.FinalStore = makeFinalStore(this);
+    }
+}
+
+const Flux = new Flux();
+
+module.exports = Flux;
