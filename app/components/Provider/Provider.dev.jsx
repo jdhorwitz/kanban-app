@@ -10,7 +10,7 @@ chromeDebug(alt);
 
 React.Perf = require('react-addons-perf');
 
-export default ({children}) => 
+export default ({children}) =>
   <AltContainer flux={alt}>
     {children}
   </AltContainer>

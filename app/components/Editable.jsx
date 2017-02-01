@@ -1,25 +1,20 @@
 import React from 'react';
 import classnames from 'classnames';
 
-export default({
-  editing,
-  value,
-  onEdit,
-  className,
-  ...props
-}) => {
-  if (editing) {
-    return <Edit 
+export default ({editing, value, onEdit, className, ...props}) => {
+  if(editing) {
+    return <Edit
       className={className}
-      value={value} 
-      onEdit={onEdit} 
-      {...props}/>;
+      value={value}
+      onEdit={onEdit}
+      {...props} />;
   }
 
   return <span className={classnames('value', className)} {...props}>
-      {value}
-    </span>;
+    {value}
+  </span>;
 }
+
 class Edit extends React.Component {
   render() {
     const {className, value, ...props} = this.props;
@@ -27,6 +22,11 @@ class Edit extends React.Component {
     return <input
       type="text"
       className={classnames('edit', className)}
+      ref={
+        element => element ?
+        element.selectionStart = value.length :
+        null
+      }
       autoFocus={true}
       defaultValue={value}
       onBlur={this.finishEdit}
@@ -34,14 +34,14 @@ class Edit extends React.Component {
       {...props} />;
   }
   checkEnter = (e) => {
-    if (e.key === 'Enter') {
+    if(e.key === 'Enter') {
       this.finishEdit(e);
     }
   }
   finishEdit = (e) => {
     const value = e.target.value;
 
-    if (this.props.onEdit) {
+    if(this.props.onEdit) {
       this.props.onEdit(value);
     }
   }
